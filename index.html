@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Snippet Analyzer - Understand Your Code Instantly</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <div class="logo">💻 CodePulse</div>
+      <p class="tagline">AI-Powered Code Intelligence</p>
+    </div>
+    <div class="navbar-controls">
+      <button id="settingsBtn" class="navbar-btn" title="Settings">⚙️</button>
+      <button id="themeToggle" class="navbar-btn" title="Toggle Dark/Light Mode">🌙</button>
+      <div class="ollama-status">
+        <span id="ollamaStatusIcon">⚙️</span>
+        <span id="ollamaStatusText">Checking Ollama...</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="settingsPanel" class="settings-panel">
+    <div class="settings-header">
+      <h3>Settings</h3>
+      <button id="closeSettings" class="close-btn">✕</button>
+    </div>
+    <div class="settings-content">
+      <div class="setting-group">
+        <label for="soundToggle">
+          <input type="checkbox" id="soundToggle" checked>
+          <span>🔊 Sound Effects</span>
+        </label>
+      </div>
+      <div class="setting-group">
+        <label for="autoSaveToggle">
+          <input type="checkbox" id="autoSaveToggle" checked>
+          <span>💾 Auto-Save History</span>
+        </label>
+      </div>
+      <div class="setting-group">
+        <label for="tooltipsToggle">
+          <input type="checkbox" id="tooltipsToggle" checked>
+          <span>💡 Show Tooltips</span>
+        </label>
+      </div>
+      <hr>
+      <button id="clearHistory" class="danger-btn">🗑️ Clear History</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Analyze Code Like Never Before</h1>
+      <p class="hero-subtitle">Get instant insights, AI-powered suggestions, and deep code understanding</p>
+      <div class="hero-features">
+        <div class="feature-chip">🔍 Instant Analysis</div>
+        <div class="feature-chip">🤖 AI-Powered</div>
+        <div class="feature-chip">📊 16+ Languages</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-blocks">
+        <div class="code-block block-1"></div>
+        <div class="code-block block-2"></div>
+        <div class="code-block block-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="analyzer-container">
+    <div class="main-content">
+      <div class="left-sidebar">
+        <div class="history-panel">
+          <div class="history-header">
+            <h3>📜 History</h3>
+            <button id="toggleHistory" class="mini-btn" title="Toggle history">△</button>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </div>
+
+      <div class="center-panel">
+        <div class="input-panel">
+        <div class="panel-header">
+          <h2>📝 Your Code</h2>
+          <p>Paste any code snippet to get started</p>
+        </div>
+        <div class="form-group">
+          <label for="language">Programming Language:</label>
+          <select id="language">
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+            <option value="csharp">C#</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="php">PHP</option>
+            <option value="ruby">Ruby</option>
+            <option value="go">Go</option>
+            <option value="typescript">TypeScript</option>
+            <option value="sql">SQL</option>
+            <option value="rust">Rust</option>
+            <option value="swift">Swift</option>
+            <option value="kotlin">Kotlin</option>
+            <option value="r">R</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="codeInput">Code Input:</label>
+          <textarea id="codeInput" placeholder="Paste your code snippet here and click Analyze..." rows="14"></textarea>
+          <div class="code-stats">
+            <span>📊 <span id="lineCount">0</span> lines</span>
+            <span>📝 <span id="charCount">0</span> chars</span>
+            <span>🔤 <span id="wordCount">0</span> words</span>
+          </div>
+        </div>
+
+        <div class="form-group ai-toggle">
+          <label for="useAI">
+            <input type="checkbox" id="useAI">
+            <span>🤖 Use AI Analysis (Ollama)</span>
+          </label>
+          <p class="ai-hint">Requires Ollama running locally on your computer</p>
+        </div>
+        
+        <button id="analyzeBtn" class="btn-analyze">✨ Analyze Code</button>
+        </div>
+
+        <div id="results" class="results-section"></div>
+      </div>
+
+      <div class="right-sidebar">
+        <div class="results-actions">
+          <h4>📋 Actions</h4>
+          <button id="copyResults" class="action-btn" disabled title="Copy results to clipboard">📋 Copy Results</button>
+          <button id="exportResults" class="action-btn" disabled title="Export results as JSON">⬇️ Export JSON</button>
+        </div>
+        
+        <div class="history-nav">
+          <h4>⏱️ Navigation</h4>
+          <button id="prevAnalysis" class="nav-btn" disabled>← Previous</button>
+          <button id="nextAnalysis" class="nav-btn" disabled>Next →</button>
+          <p id="analysisCounter" class="counter">No analyses yet</p>
+        </div>
+
+        <div class="quick-stats">
+          <h4>⚡ Stats</h4>
+          <p id="analysisTime">-</p>
+          <p id="codeComplexity">-</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>✨ CodePulse • Intelligent Code Analysis • 100% Local • No Tracking</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
